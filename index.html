@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Behice Hocam'a...</title>
+<style>
+  body, html {
+    margin:0; padding:0;
+    width:100%; height:100%;
+    display:flex; 
+    justify-content:center; 
+    align-items:center;
+    background: linear-gradient(135deg, #fce4ec, #fff0f5);
+    background-size: 400% 400%;
+    animation: breatheBG 12s ease-in-out infinite;
+
+    font-family: 'Poppins', sans-serif;
+
+    overflow-y:auto;
+    overflow-x:hidden;
+
+    position:relative;
+  }
+
+  @keyframes breatheBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+  }
+
+  /* PANDA */
+  .panda {
+    width:220px; 
+    position:relative;
+    display:flex; 
+    flex-direction:column; 
+    align-items:center;
+    cursor:pointer;
+    animation: floatPanda 2s ease-in-out infinite alternate;
+    margin-top:40px;
+
+    /* Masaüstü için hizalama */
+    margin-left: 80px;
+  }
+
+  /* Mobil için hizalama (iPhone 14 ve diğer küçük cihazlar) */
+  @media (max-width: 430px) {
+    .panda {
+        margin-left: 35px; /* ekran dar, sağa kaydırılıyor */
+    }
+  }
+
+  @keyframes floatPanda {
+    0% {transform: translateY(0);}
+    100% {transform: translateY(-5px);}
+  }
+
+  .ear {
+    width:70px; height:70px;
+    background:#000;
+    border-radius:50%;
+    position:absolute; top:0;
+  }
+  .ear.left { left:-5px; }
+  .ear.right { right:-5px; }
+
+  .head {
+    width:160px; height:160px;
+    background:#fff;
+    border-radius:50%;
+    position:relative;
+    display:flex; justify-content:center; align-items:center;
+    flex-direction:column;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  }
+
+  .eye {
+    width:22px; height:22px;
+    background:#000;
+    border-radius:50%;
+    position:absolute; top:55px;
+    animation: blink 3s infinite;
+  }
+
+  .eye::after {
+    content:"";
+    width:8px; height:8px;
+    background:white;
+    border-radius:50%;
+    position:absolute;
+    top:3px; left:3px;
+    opacity:0.9;
+  }
+
+  @keyframes blink {
+    0%, 92%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(0.1); }
+  }
+
+  .eye.left { left:38px; }
+  .eye.right { right:38px; }
+
+  .eye::before,
+  .eye div,
+  .eye span {
+    content:''; position:absolute; top:-7px;
+    width:3px; height:7px; background:#000; border-radius:2px;
+  }
+
+  .eye::before { left:-4px; transform:rotate(-20deg); }
+  .eye div { left:8px; transform:rotate(0deg); }
+  .eye span { left:18px; transform:rotate(20deg); }
+
+  .nose {
+    width:20px; height:20px;
+    background:#000;
+    border-radius:50%;
+    position:absolute;
+    top:85px;
+  }
+
+  .cheek {
+    width:28px; height:18px;
+    background:pink; opacity:0.5;
+    border-radius:50%;
+    position:absolute; top:95px;
+  }
+  .cheek.left { left:25px; }
+  .cheek.right { right:25px; }
+
+  .mouth {
+    width:38px; height:18px;
+    border-bottom:3px solid #e12ea3;
+    border-radius:0 0 20px 20px;
+    position:absolute; top:115px;
+    animation: smile 3s infinite;
+  }
+
+  @keyframes smile {
+    0%, 60%, 100% { border-bottom-width:3px; }
+    70% { border-bottom-width:6px; }
+  }
+
+  .body {
+    width:130px; height:100px;
+    background:#fff;
+    border-radius:50%/30%;
+    margin-top:-10px;
+    position:relative;
+  }
+
+  .hand {
+    width:40px; height:40px;
+    background:#000; border-radius:50%;
+    position:absolute; top:20px;
+  }
+  .hand.left { left:-20px; }
+  .hand.right { right:-20px; animation: wave 1.2s infinite ease-in-out; }
+
+  @keyframes wave {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(25deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  .letter {
+    position:absolute; top:170px; left:50%;
+    transform:translateX(-50%);
+    width:65px; height:45px;
+    background:#fff; border:2px solid #ff6b81;
+    border-radius:5px;
+    display:flex; justify-content:center; align-items:center;
+    font-size:1.7rem;
+    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+    z-index:2;
+  }
+
+  .hint {
+    position:absolute; top:260px; left:50%;
+    transform:translateX(-50%);
+    font-size:0.8rem; color:#ff6b81; font-weight:bold;
+  }
+
+  .message-box {
+    margin-top:350px;
+    width:320px;
+    background:rgba(255,255,255,0.95);
+    padding:18px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    opacity:0; pointer-events:none;
+    transition: all 0.3s ease;
+    font-size:0.9rem;
+    line-height:1.45;
+  }
+
+  .message-box.show {
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  .heart {
+    position:absolute;
+    font-size:28px;
+    animation: heartFly 1.3s ease-out forwards;
+    pointer-events:none;
+  }
+
+  @keyframes heartFly {
+    0% { transform: translateY(0) scale(0.5); opacity:1; }
+    100% { transform: translateY(-120px) scale(1.6); opacity:0;}
+  }
+
+  .floating {
+    position:absolute; opacity:0; pointer-events:none;
+    animation: floatUp linear infinite;
+    font-size:20px;
+  }
+
+  @keyframes floatUp {
+    0% {transform: translateY(120vh) scale(0.5); opacity:0;}
+    20% {opacity:1;}
+    100% {transform: translateY(-10vh) scale(1); opacity:0;}
+  }
+</style>
+</head>
+
+<body>
+
+<div class="panda" id="panda">
+  <div class="ear left"></div>
+  <div class="ear right"></div>
+
+  <div class="head">
+    <div class="eye left"><div></div><span></span></div>
+    <div class="eye right"><div></div><span></span></div>
+
+    <div class="nose"></div>
+
+    <div class="cheek left"></div>
+    <div class="cheek right"></div>
+
+    <div class="mouth"></div>
+
+    <div class="letter">💌</div>
+    <div class="hint">Mesajı görmek için dokun</div>
+  </div>
+
+  <div class="body">
+    <div class="hand left"></div>
+    <div class="hand right"></div>
+  </div>
+</div>
+
+<div class="message-box" id="message">
+  <strong>Sevgili Behice Hocam,</strong><br><br>
+  İnsanlar bazen kararlar alırken zorlanırlar , zorlanmalarının sebebi kararların zor olması değil kararlarının sonucunun ne olacağını bilememeleridir. Yaklaşık 2 yıl önce zor bir durumda birinin kapısını çalmıştım. O kişiyi daha önce hiç tanımıyordum. İsmi Behiceydi. O gün beni dikkatle dinlemiş, bana yardım edeceğini söylemiş ve o dönemde bana gerçekten yardım etmişti.Geleceği bilmem ve bilmiyordumda yalnız o hocam da bişey farketmiştim daha önce kimsede görmediğim bir gücü vardı.Sanki tam herşey bitti dendiğinde bile bir çözümünü buluyor ve o durumdan bi şekilde kurtuluyordu , ne biliyim direniyordu. Ve hayata olan inancı öylesine güçlüydü ki kendisi yorulduğunu söylese bile o baş edebiliyordu. Bende isterdim öyle güçlü olmak direnmek ama değildim işte :) İtiraf ediyim o günleri gerçekten çok özlüyorum. Umuruyom ki ömrünüz boyunca bu gücünüz hiç bitmez, dilerim ki ışığınızla hem kendinizi hemde yeni öğrencilerinizi aydınlatırsınız
+  Öğretmenler Gününüz kutlu olsun! 🌸💛<br><br>
+  <em>Öğrenciniz Mustafa Uysal</em>
+</div>
+
+<script>
+  const panda = document.getElementById('panda');
+  const message = document.getElementById('message');
+
+  panda.addEventListener('click', () => {
+    message.classList.toggle('show');
+    createHeart();
+  });
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    const hearts = ["💖","💗","💞","💓","❤️"];
+    heart.innerText = hearts[Math.floor(Math.random()*hearts.length)];
+
+    const rect = panda.getBoundingClientRect();
+    heart.style.left = rect.left + rect.width/2 + "px";
+    heart.style.top = rect.top + 40 + "px";
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 1300);
+  }
+
+  const symbols = ['🐼','💌'];
+  for(let i=0;i<15;i++){
+    const f = document.createElement('span');
+    f.className='floating';
+    f.innerText = symbols[i % symbols.length];
+    f.style.left = (Math.random()*100)+'vw';
+    f.style.fontSize = (Math.random()*20+12)+'px';
+    f.style.animationDuration = (Math.random()*5+5)+'s';
+    f.style.animationDelay = (Math.random()*5)+'s';
+    document.body.appendChild(f);
+  }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
